@@ -133,28 +133,42 @@ const createSteakItem = (param1) => {
 
 // Promise to make the steak recipe:
 
-obtainInstruction = (steak) => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      if (!steak[steak]) reject("No steak left. Error. Help. I'm hungry");
-      else {
-        createSteakItem(steak[steak]);
-        resolve();
-      }
-    }, 1000);
-  });
-};
-
-obtainInstruction(0)
-  .then(() => obtainInstruction(1))
-  .then(() => obtainInstruction(2))
-  .then(() => obtainInstruction(3))
-  .then(() => obtainInstruction(4))
-  .then(() => obtainInstruction(5))
-  .then(() => obtainInstruction(6))
-  .then(() => obtainInstruction(7))
-  .then(() => obtainInstruction(8))
-  .then(() => console.log("The steak is ready!"))
+obtainInstruction("steak", 0)
+  .then((result) => {
+    createSteakItem(result);
+    return obtainInstruction("steak", 1);
+  })
+  .then((result) => {
+    createSteakItem(result);
+    return obtainInstruction("steak", 2);
+  })
+  .then((result) => {
+    createSteakItem(result);
+    return obtainInstruction("steak", 3);
+  })
+  .then((result) => {
+    createSteakItem(result);
+    return obtainInstruction("steak", 4);
+  })
+  .then((result) => {
+    createSteakItem(result);
+    return obtainInstruction("steak", 5);
+  })
+  .then((result) => {
+    createSteakItem(result);
+    return obtainInstruction("steak", 6);
+  })
+  .then((result) => {
+    createSteakItem(result);
+    return obtainInstruction("steak", 7);
+  })
+  .then((result) => {
+    createSteakItem(result);
+    return obtainInstruction("steak", 8);
+  })
+  .then((result) => {
+    console.log("The steak is ready!");
+  })
   .catch((err) => console.log(err));
 
 // Iteration 3 using async/await
@@ -170,24 +184,23 @@ const createBroccoliItem = (param1) => {
   broccoliList.appendChild(item);
 };
 
-function obtainInstruction(broccoli) {
-  return new Promise((resolve, reject) => {
-    if (!broccoli[broccoli]) reject("Help. No broccoli. So sad.");
-    else {
-      createBroccoliItem(broccoli[broccoli]);
-      resolve();
-    }
-  });
-}
-
 async function makeBroccoli() {
-  await obtainInstruction(0);
-  await obtainInstruction(1);
-  await obtainInstruction(2);
-  await obtainInstruction(3);
-  await obtainInstruction(4);
-  await obtainInstruction(5);
-  await obtainInstruction(6);
+  const result1 = await obtainInstruction("broccoli", 0);
+  await createBroccoliItem(result1);
+  const result2 = await obtainInstruction("broccoli", 1);
+  await createBroccoliItem(result2);
+  const result3 = await obtainInstruction("broccoli", 2);
+  await createBroccoliItem(result3);
+  const result4 = await obtainInstruction("broccoli", 3);
+  await createBroccoliItem(result4);
+  const result5 = await obtainInstruction("broccoli", 4);
+  await createBroccoliItem(result5);
+  const result6 = await obtainInstruction("broccoli", 5);
+  await createBroccoliItem(result6);
+  const result7 = await obtainInstruction("broccoli", 6);
+  await createBroccoliItem(result7);
+  const result8 = await obtainInstruction("broccoli", 7);
+  await createBroccoliItem(result8);
   console.log("The broccoli is ready!");
 }
 
