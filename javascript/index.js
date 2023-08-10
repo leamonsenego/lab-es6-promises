@@ -65,49 +65,64 @@ const createPotatoesItem = (param1) => {
 
 // Nested callbacks to make the mashed potatoes:
 
-const boilWater = (param1, param2, param3, param4, param5) => {
+const boilWater = (param1, param2, param3, param4, param5, param6) => {
   setTimeout(() => {
     createPotatoesItem(mashedPotatoes[0]);
+    param1(param2, param3, param4, param5, param6);
+  }, 1000);
+};
+
+const openBagAndMixFunc = (param1, param2, param3, param4, param5) => {
+  setTimeout(() => {
+    createPotatoesItem(mashedPotatoes[1]);
     param1(param2, param3, param4, param5);
   }, 1000);
 };
 
-const openBagAndMixFunc = (param1, param2, param3, param4) => {
+const pourWater = (param1, param2, param3, param4) => {
   setTimeout(() => {
-    createPotatoesItem(mashedPotatoes[1]);
+    createPotatoesItem(mashedPotatoes[2]);
     param1(param2, param3, param4);
   }, 1000);
 };
 
-const pourWater = (param1, param2, param3) => {
+const mix = (param1, param2, param3) => {
   setTimeout(() => {
-    createPotatoesItem(mashedPotatoes[2]);
+    createPotatoesItem(mashedPotatoes[3]);
     param1(param2, param3);
   }, 1000);
 };
 
-const mix = (param1, param2) => {
+const enjoy = (param1, param2) => {
   setTimeout(() => {
-    createPotatoesItem(mashedPotatoes[3]);
+    createPotatoesItem(mashedPotatoes[4]);
     param1(param2);
   }, 1000);
 };
 
-const enjoy = (param1) => {
+const areReady = (param1) => {
   setTimeout(() => {
-    createPotatoesItem(mashedPotatoes[4]);
+    createPotatoesItem("The mashed potatoes are ready!");
     param1();
   }, 1000);
 };
 
-const areReady = () => {
+const showImage = () => {
   setTimeout(() => {
-    createPotatoesItem("The mashed potatoes are ready!");
+    let potatoesImg = document.getElementById("mashedPotatoesImg");
+    potatoesImg.style.display = "block";
   }, 1000);
 };
-
-const makeMashedPotatoes = (param1, param2, param3, param4, param5, param6) => {
-  param1(param2, param3, param4, param5, param6);
+const makeMashedPotatoes = (
+  param1,
+  param2,
+  param3,
+  param4,
+  param5,
+  param6,
+  param7
+) => {
+  param1(param2, param3, param4, param5, param6, param7);
 };
 
 makeMashedPotatoes(
@@ -116,7 +131,8 @@ makeMashedPotatoes(
   pourWater,
   mix,
   enjoy,
-  areReady
+  areReady,
+  showImage
 );
 
 // Iteration 2 - using promises
@@ -168,8 +184,11 @@ obtainInstruction("steak", 0)
     return null;
   })
   .then(() => {
-    console.log("test");
     createSteakItem("The steak is ready!");
+  })
+  .then(() => {
+    let steakImg = document.getElementById("steakImg");
+    steakImg.style.display = "block";
   })
   .catch((err) => console.log(err));
 
@@ -202,9 +221,24 @@ async function makeBroccoli() {
   const result7 = await obtainInstruction("broccoli", 6);
   createBroccoliItem(result7);
   createBroccoliItem("The broccoli is ready!");
+  let broccoliImg = document.getElementById("broccoliImg");
+  broccoliImg.style.display = "block";
 }
 
 makeBroccoli();
 
 // Bonus 2 - Promise all
-// ...
+
+const promises = [];
+for (let i = 0; i < brusselsSprouts.length; i++) {
+  promises.push(obtainInstruction("brusselsSprouts", [i]));
+}
+Promise.all(promises).then((steps) => {
+  const brusselsList = document.querySelector("#brusselsSprouts");
+  steps.forEach((step) => {
+    brusselsList.innerHTML += `<li>${step}</li>`;
+  });
+  brusselsList.innerHTML += "<li>Brussels sprouts are ready!</li>";
+  const brusselsImg = document.getElementById("brusselsSproutsImg");
+  brusselsImg.removeAttribute("hidden");
+});
