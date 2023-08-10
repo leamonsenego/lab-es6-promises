@@ -65,37 +65,38 @@ const createPotatoesItem = (param1) => {
 
 // Nested callbacks to make the mashed potatoes:
 
-const boilWater = (param1, param2, param3, param4) => {
+const boilWater = (param1, param2, param3, param4, param5) => {
   setTimeout(() => {
     createPotatoesItem(mashedPotatoes[0]);
+    param1(param2, param3, param4, param5);
+  }, 1000);
+};
+
+const openBagAndMixFunc = (param1, param2, param3, param4) => {
+  setTimeout(() => {
+    createPotatoesItem(mashedPotatoes[1]);
     param1(param2, param3, param4);
   }, 1000);
 };
 
-const openBagAndMixFunc = (param1, param2, param3) => {
+const pourWater = (param1, param2, param3) => {
   setTimeout(() => {
-    createPotatoesItem(mashedPotatoes[1]);
+    createPotatoesItem(mashedPotatoes[2]);
     param1(param2, param3);
   }, 1000);
 };
 
-const pourWater = (param1, param2) => {
+const mix = (param1, param2) => {
   setTimeout(() => {
-    createPotatoesItem(mashedPotatoes[2]);
+    createPotatoesItem(mashedPotatoes[3]);
     param1(param2);
   }, 1000);
 };
 
-const mix = (param1) => {
-  setTimeout(() => {
-    createPotatoesItem(mashedPotatoes[3]);
-    param1();
-  }, 1000);
-};
-
-const enjoy = () => {
+const enjoy = (param1) => {
   setTimeout(() => {
     createPotatoesItem(mashedPotatoes[4]);
+    param1();
   }, 1000);
 };
 
@@ -105,8 +106,8 @@ const areReady = () => {
   }, 1000);
 };
 
-const makeMashedPotatoes = (param1, param2, param3, param4, param5) => {
-  param1(param2, param3, param4, param5);
+const makeMashedPotatoes = (param1, param2, param3, param4, param5, param6) => {
+  param1(param2, param3, param4, param5, param6);
 };
 
 makeMashedPotatoes(
@@ -164,10 +165,11 @@ obtainInstruction("steak", 0)
   })
   .then((result) => {
     createSteakItem(result);
-    return obtainInstruction("steak", 8);
+    return null;
   })
-  .then((result) => {
-    console.log("The steak is ready!");
+  .then(() => {
+    console.log("test");
+    createSteakItem("The steak is ready!");
   })
   .catch((err) => console.log(err));
 
@@ -186,22 +188,20 @@ const createBroccoliItem = (param1) => {
 
 async function makeBroccoli() {
   const result1 = await obtainInstruction("broccoli", 0);
-  await createBroccoliItem(result1);
+  createBroccoliItem(result1);
   const result2 = await obtainInstruction("broccoli", 1);
-  await createBroccoliItem(result2);
+  createBroccoliItem(result2);
   const result3 = await obtainInstruction("broccoli", 2);
-  await createBroccoliItem(result3);
+  createBroccoliItem(result3);
   const result4 = await obtainInstruction("broccoli", 3);
-  await createBroccoliItem(result4);
+  createBroccoliItem(result4);
   const result5 = await obtainInstruction("broccoli", 4);
-  await createBroccoliItem(result5);
+  createBroccoliItem(result5);
   const result6 = await obtainInstruction("broccoli", 5);
-  await createBroccoliItem(result6);
+  createBroccoliItem(result6);
   const result7 = await obtainInstruction("broccoli", 6);
-  await createBroccoliItem(result7);
-  const result8 = await obtainInstruction("broccoli", 7);
-  await createBroccoliItem(result8);
-  console.log("The broccoli is ready!");
+  createBroccoliItem(result7);
+  createBroccoliItem("The broccoli is ready!");
 }
 
 makeBroccoli();
